@@ -494,11 +494,11 @@ def add_INR(request):
 				return redirect('/inrtracker/home')
 			else:
 				show = "visible"
-<<<<<<< HEAD
+
 				message_alert = "Spróbuj wypełnić formularz jeszcze raz. Nie wszytkie pola zostały wypełnione"
-=======
+
 				message_alert = "Spróbuj wypełnić formularz jeszcze raz. Nie wszytkie pola zostały wypełnione"
->>>>>>> b7e950cb54ff78382ca2923da0492e1fed0e68ef
+
 				return render(request, 'inrtracker/add_inr.html',{'user':userlogin,'value':value, 'message_alert':message_alert, 'show':show, 'taken_drug':taken_drug, 'show_alert':show_alert})
 		else:
 			login= INRForm()
