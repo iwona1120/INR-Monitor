@@ -122,6 +122,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = "/home/iwona/myproject/static"
+STATIC_ROOT = "/home/iwona/INR-Monitor/inrtracker/static"
 
 STATIC_URL = '/static/'
