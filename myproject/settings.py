@@ -31,9 +31,7 @@ ALLOWED_HOSTS = ['iwona.pythonanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
-	'webapp',
-	'personal',
-	'blog',
+	
 	'inrtracker',
     'django.contrib.admin',
     'django.contrib.auth',
