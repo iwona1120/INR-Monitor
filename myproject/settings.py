@@ -25,7 +25,7 @@ SECRET_KEY = '0x^tdg4fx9(kxnhrgf8h4nmn5k)fl)7@-jjj+0o0+c&)ym_+%g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['iwona.pythonanywhere.com']
 
 
 # Application definition
@@ -52,7 +52,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	
+
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -122,5 +122,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = "/home/iwona/myproject/static"
 
 STATIC_URL = '/static/'
