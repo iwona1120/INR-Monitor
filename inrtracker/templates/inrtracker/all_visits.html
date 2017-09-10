@@ -1,0 +1,22 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+
+<table class="table table-striped">
+	<tr>
+	 <th>Data badania</th>
+	 <th>Godzina badania</th>
+	 <th>Miejsce badania</th>
+	 <th>Szczegóły</th>
+	</tr>
+{%for visit in visits %}
+	<tr>
+		<td>{{ visit.nexttestdate|date:"d-m-Y" }} </td>
+		<td>{{ visit.hour|time:"H:i"}}</td>
+		<td>{{ visit.place }}</td>
+		<td><a href = "/inrtracker/home/all_visits/{{visit.id}}" ><button class="btn btn-success btn-sm">Szczegóły/zmiany</button></a></td>
+	</tr>	
+
+{%endfor%}
+</table>
+{% endblock %}

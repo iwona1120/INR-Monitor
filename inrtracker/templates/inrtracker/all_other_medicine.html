@@ -1,0 +1,51 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+
+<div class="alert alert-success alert-info" style="visibility:" {{ show }}>
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+		<strong>Nie masz wprowadzonych jeszcze żadnych dodatkowych leków.</strong>				
+	</div>
+	
+<table class="table table-striped">
+	<tr>
+	 <th>Nazwa leku</th>
+	 <th>Dawka dzienna\z podzialem na dni</th>
+	 <th>Zmień</th>
+	 <th>Usuń </th>
+	</tr>
+	
+	<form class="form-horizontal" method="post"  > {% csrf_token %}
+{%for drug in used_drugs %}
+	<tr>
+		<td>{{drug.drugid.name }} {{drug.drugid.activesub}} </td>
+		<td>{{drug.useddose}}
+		<td><a href = "/inrtracker/home/all_other_medicine/{{drug.id}}" ><button class="btn btn-success btn-sm" type="button" >Zmień</button></a></td>
+		<td> 					
+		<div class="form-group">
+					<div class="cols-sm-10">
+						<div class="input-group">	
+							<input type="checkbox"  name="delete[]" value = "{{drug.id}}" /> 
+						</div>
+					</div>
+				</div>
+		</td>		
+		
+	</tr>
+	{%endfor%}
+	<tr>
+		<td></td>
+		<td></td>	
+		<td></td>
+		<td> 	
+		<div class="form-group ">
+		<button type="submit" class="btn btn-info btn-sm">Zapisz</button>					
+		</div></td>
+</form>
+
+
+</table>
+
+<a href = "/inrtracker/home/add_medicine/"><button class="btn btn-success btn-lg">Dodaj lek</button></a>	
+
+{% endblock %}

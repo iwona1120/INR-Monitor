@@ -1,0 +1,69 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+		<div class="container">
+			<div class="row main">
+			
+				<div class="alert alert-danger" style="visibility:" {{ show }}>
+					<strong>Coś poszło nie tak!</strong><br>
+					{{ message }}
+				
+				</div>	
+				<div class="panel-heading">
+				<div class="main-center" >
+					<form class="form-horizontal" method="post"  > {% csrf_token %}
+						
+						<div class="form-group">
+							<label for="nexttestdate" class="cols-sm-2 control-label">Data kolejnej wizyty:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<input type="date" class="form-control" name="nexttestdate" id="nexttestdate" />
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="hour" class="cols-sm-2 control-label">Gdzina wizyty:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<input type="time" class="form-control" name="hour" id="hour"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="place" class="cols-sm-2 control-label">Miejece wizyty:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<input type="text" class="form-control" name="place" id="place" placeholder = "np. Kraków, Scan-med, ul. Armii Krajowej"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="testtype" class="cols-sm-2 control-label">Cel wizyty:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<input type="text" class="form-control" name="testtype" id="testtype" placeholder = "np. Badanie INR"/>
+								</div>
+							</div>
+						</div>						
+						
+						<div class="form-group ">
+							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zapisz</button>
+						
+						</div>
+						</form>
+						
+					</div> 				
+				</div>
+				</div>
+			</div>
+		
+
+
+{% endblock %}

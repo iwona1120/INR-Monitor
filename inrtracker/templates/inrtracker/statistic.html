@@ -1,0 +1,40 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+
+ <div class="row">
+        <div class="col-sm-2">
+            <nav class="nav-sidebar">
+                <ul class="nav">
+                    <li class="active" id ="zmianaINR"><a href="#" >Zmina INR</a></li>
+                    <li><a href="#" id = "link_zmian_dawki">Zmiana dawki leku</a></li>
+                    <li><a href="#" id="link_tygodniowa_zmiana">Tyogodniowa dawka</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-sm-10" id= "zmianaINR">
+		
+
+	
+			<div class="container-fluid" id ="zmiana_INR" >
+				<h2> Zmiana wskaźnika INR w zależności od czasu </h2>
+				<div id="curve_chart" style="width: 900px; height: 500px"></div>
+			</div>
+			
+			<div class="container-fluid" id = "zmiana_dawki" >
+				<h2> Przymowana dawka leków </h2>
+				<div id="chart_doses" style="width: 900px; height: 500px "></div>
+			</div>
+			
+			<div class="container-fluid" id ="tygodniowa_zmiana"> 
+				<h2> Tygodniowa suma dawek</h2>
+				<div id="top_x_div" style="width: 900px; height: 500px "></div>
+			</div>
+	
+      
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

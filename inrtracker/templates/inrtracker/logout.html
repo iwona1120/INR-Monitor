@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	{% load staticfiles %}
+	
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="{% static 'personal/js/bootstrap.min.js' %}"></script>
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+			<style type="text/css">
+	.main-center{
+			margin-top: 30px;
+			margin: 0 auto;
+			max-width: 330px;
+			padding: 40px 40px;
+
+}
+	</style>
+		<link rel="stylesheet" href="{% static 'inrtracker/css/bootstrap.min.css' %}" type = "text/css"/>
+		<title>Admin</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row main">
+				<div class="panel-heading">
+	               <div class="panel-title text-center">
+	               		<img src="{% static 'inrtracker/images/logo.png' %}" alt="Tekst alternatywny"  width="200"/></a>
+	               		<hr />
+	               	</div>
+	            </div> 
+				<div class="main-center" >
+				<h2> Poprawnie wylogowano </h2>
+				<a href="/inrtracker/login/"><button class="btn btn-primary btn-lg btn-block login-button">Zaloguj ponownie</button></a>
+				</div>
+				
+			</div>
+		</div>	
+	</body>
+</html>
+{% block content %}
+	
+{% endblock %}

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>INR Monitor</title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+	
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<script src="{% static 'inrtracker/lib/moment.min.js' %}"></script>
+	<script src="{% static 'inrtracker/lib/jquery.min.js' %}"></script>
+	<script src = "{% static 'inrtracker/fullcalendar.min.js' %}"></script>
+	<script src="{% static 'inrtracker/js/bootstrap.min.js' %}"></script>
+	
+	
+
+	
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+    $(function(){
+         // Find any date inputs and override their functionality
+         $('input[type="date"]').datepicker();
+    });
+	$(function(){
+		$('input[type="time"]').timepicker();
+		});
+</script>
+	
+	<link rel="stylesheet" type="text/css" href="{% static 'inrtracker/fullcalendar.min.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'inrtracker/fullcalendar.print.min.css' %}" media='print'/>
+    <!-- MetisMenu CSS -->
+    <link href="{% static 'inrtracker/vendor/metisMenu/metisMenu.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'inrtracker/dist/css/sb-admin-2.css'%}" rel="stylesheet" type="text/css">
+
+    <!-- Morris Charts CSS -->
+    <link href="{% static 'inrtracker/vendor/morrisjs/morris.css'%}" rel="stylesheet" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'inrtracker/vendor/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="{% static 'inrtracker/leftpanel.css' %}" type = "text/css"/>
+	<link rel="stylesheet" href="{% static 'inrtracker/css/bootstrap.min.css' %}" type = "text/css"/>
+	<script>
+	function showElement(){
+		var d = document.getElementById("differentdose")
+		var dd = document.getElementById("dose1")
+		
+		 if (d.style.display === 'none') {
+			d.style.display = 'block';
+			dd.style.display = 'none';
+		} else {
+			d.style.display = 'none';
+			dd.style.display = 'block';
+		}
+	}
+
+	</script>
+	
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'line']});
+	  google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+	  google.charts.setOnLoadCallback(drawChart_doses);
+	  google.charts.setOnLoadCallback(drawChart_sum_dose);
+	  
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable({{data|safe}});
+
+        var options = {
+         
+          pointSize: 4.5,
+          legend: { position: 'bottom' },
+		  axes: {
+          y: {
+            0: {label: 'top'}
+          }
+        }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+	  
+	  function drawChart_doses() {
+        var data = google.visualization.arrayToDataTable({{tab_saved_drugs|safe}});
+
+        var options = {
+         
+          pointSize: 4.5,
+          legend: { position: 'bottom' },
+		  axes: {
+          y: {
+            0: {label: 'top'}
+          }
+        }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_doses'));
+
+        chart.draw(data, options);
+      }
+	  
+	  function drawChart_sum_dose() {
+      var data = google.visualization.arrayToDataTable( {{data_suma|safe}});
+
+       var options = {
+          width: 800,
+          legend: { position: 'none' },
+         
+          axes: {
+            x: {
+              0: { side: 'buttom'} // Top x-axis.
+            }
+          },
+          bar: { groupWidth: "90%" }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+        // Convert the Classic options to Material options.
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      };
+    </script>
+	
+	<script>
+
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			defaultDate: '{{ today|date:"Y-m-d" }}',
+			navLinks: true, // can click day/week names to navigate views
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			events: {{events|safe}}
+		});
+
+		
+	});
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#zmianaINR").click(function(){
+        $("#zmiana_dawki").hide();
+		$("#zmiana_INR").show();
+		$("#tygodniowa_zmiana").hide();
+		
+    });
+        
+	$("#link_zmian_dawki").click(function(){
+        $("#zmiana_dawki").show();
+		$("#zmiana_INR").hide();
+		$("#tygodniowa_zmiana").hide();
+		
+    });
+	
+    $("#link_tygodniowa_zmiana").click(function(){
+        $("#zmiana_dawki").hide();
+		$("#zmiana_INR").hide();
+		$("#tygodniowa_zmiana").show();
+		
+    });
+});
+</script>
+
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+
+
+
+	
+	<style type="text/css">
+		html,
+		body {
+		  height:100%
+		  margin: 40px 10px;
+		  padding: 0;
+		  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		  font-size: 14px;
+		  
+		}
+		.tool-tip {
+		display: inline-block;
+		}
+
+		.tool-tip [disabled] {
+		pointer-events: none;
+		}
+		
+		#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+	</style>
+</head>
+
+
+<body class="body" style="background-color:#f6f6f6">
+
+
+   <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/inrtracker/home"><img src="{% static 'inrtracker/images/logo.png' %}" alt="Tekst alternatywny" width="150" height="30"/></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+			<li ><a href="/inrtracker/home/calendar/"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalendarz</a></li>
+              <li ><a href="/inrtracker/home/statistic/"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Statystyka</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Informacje pods.</a></li>
+	
+			   <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-film" aria-hidden="true"></span> Historia <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/inrtracker/home/basicinfo.html"></a></li>
+                  <li><a href="/inrtracker/home/all_visits">Wizyt</a></li>
+                  <li><a href="/inrtracker/home/all_taken_drugs/">Przyjęte leki</a></li>
+			
+                </ul>
+			  
+			  <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Ustawienia <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/inrtracker/home/basicinfo.html">Jaki lek przeciwzakrzepowy</a></li>
+				  <li><a href="/inrtracker/home/all_other_medicine">Inne przyjmowane leki</a></li>
+                  <li><a href="#">Ustawienia konta</a></li>
+                  
+                </ul>
+				<li class="active"><a href="/inrtracker/logout"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Wyloguj</a></li>
+              </li>
+            </ul>
+            
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+		 
+	
+	<div class="container-fluid">
+			   {% block content %}
+			   {% endblock %}	
+	</div>
+		
+
+
+  
+</body>
+
+<script>
+    $(function(){           
+        if (!Modernizr.inputtypes.date) {
+            $('input[type=date]').datepicker({
+                  dateFormat : 'yy-mm-dd'
+                }
+             );
+        }
+    });
+</script>
+
+</html>

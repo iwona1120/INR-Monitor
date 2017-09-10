@@ -1,0 +1,264 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+<div class="container"></div>
+	<br>
+	<div class="alert alert-success alert-success" style="visibility:" {{ alerts.show_enter_data }}>
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+		<strong>Podstawowe dane nie zostały jeszcze wprowadzone.</strong>
+		<a href = "basicinfo"><button class="btn btn-success btn-md">Wprowadź dane!</button></a>		
+					
+	</div>	
+	<div class="alert alert-success alert-warning" style="visibility: "{{ alerts.show_missed_dose }}>
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+		<strong>Masz nie wprowadzonych kilka wartości!  </strong>
+		{{ile_dni}}
+		<a href = "missed_dose"><button class="btn btn-warning btn-md">Sprawdź!</button></a>
+					
+	</div>	
+	
+	<div class="alert alert-success alert-info" style="visibility: "{{ alerts.show_visit }}>
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+		<strong>Zbliżająca się wizyta! Wizyta za : {{visit.visit_days.days }} dni. </strong>
+		
+					
+	</div>	
+</div>
+<div class="row">
+                <div class="col-lg-8 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <form class="form-horizontal" method="post"> {% csrf_token %}
+								
+								<div class="col-xs-11 text-right">
+									
+									<div style = "font-size:36px">{{drugname}}</div>
+									<div >Zalcana dawka na dziś </div>
+									<div>(na podsawie ostatnich wyników badań i zapisanych leków):</div>
+									<div style = "font-size:24px"><b>{{ perdiction_for_home.dose }}</b> <button class="btn btn-primary btn-sm "><a href = "detail_prediction" style= "color:white" >Szczegóły</a></button></div>
+									<div style = "font-size:24px"><b>Przyjęta dawka leku dzisiaj (w tab):</b></div>
+									<div>
+							
+									
+										<span class="tool-tip" data-toggle="tooltip"  data-placement="right" title ="W tym dniu pobrana dawka leku.">
+										<input type="number" class="form-control" name="dose" id="dose"  style = "font-size:24px" min="0" value= {{ dose_for_today }} step=".01" {{ disabled1 }}/>
+										</span>
+								
+									</div>
+									<br>
+									<div>
+										<span class = "tool-tip" data-toggle="tooltip" data-placement = "right" title = "W tym dniu pobrana dawka leku.">
+										<button type="submit" class="btn btn-primary btn-lg btn-block login-button" id = "enter_dose" {{disabled1}} name = "INR_drug">Zapisz</button>
+										</span>
+									</div>
+                                    <br>
+									<br>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+	</div>
+	<div class="col-lg-4 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                
+                                <div class="col-xs-9 text-right">
+                                    <div style = "font-size:36px">{{last_INR}}</div>
+                                    <div>Ostatnia warość INR</div>
+									<div>Data badania </div>
+									<div style = "font-size:24px">{{last_INR_date|date:"d-m-Y"}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="add_INR">
+                            <div class="panel-footer">
+                                <span class="pull-left">Dodaj aktulaną wartość</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+    </div>	
+	<div class="col-lg-4 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                
+                                <div class="col-xs-9 text-right">
+                                    <div style = "font-size:36px">{{perdiction_for_home.date|date:"d-m-Y"}}</div>
+                                    <div>Zalecany termin kolejnego badania</div>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+</div>
+<div class="row">
+                
+				<div class="col-lg-4 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                
+                                <div class="col-xs-11 text-right">
+                                    <div  style="style = 20px; visibility:" {{ visit.visit_show_info }} >
+										<div style = "font-size:24px">Nie ma zaplanowanej żadnej wiziyt!</div>
+									</div>
+									<div style="visibility:" {{ visit.visit_show_details }}>
+										<div>Kolejne badanie za: </div>
+										<div style = "font-size:36px"><b>{{visit.visit_days.days }}</b> dni.</div>
+										<div>Data badania: </div>
+										<div style = "font-size:26px">{{visit.visit_details.nexttestdate|date:"d-m-Y"}} </div>
+										<div>Godzina:</div> 
+										<div style = "font-size:26px">{{visit.visit_details.hour|time:"H:i"}} </div>
+										<div>Miejsce:</div>
+										<div style = "font-size:26px">{{visit.visit_details.place}}</div>
+ 
+									<br>
+									</div>
+								</div>
+							</div>
+						</div>
+                        <a href="next_visit">
+                            <div class="panel-footer">
+                                <span class="pull-left">Dodaj kolejne badanie</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+						
+						<a href="all_visits">
+                            <div class="panel-footer">
+                                <span class="pull-left">Zobaczy wszytkie wizyty</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+				</div>	
+				<div class="col-lg-8 col-md-6">
+				
+				<div class="panel-heading">
+					<div class="main-center" >
+					<h3> Inne przyjmowane leki </h3>
+						<table class="table table-striped">
+								<tr>
+									<th></th>
+									<th>Nazwa leku</th>
+									<th>Przyjęta dawka [w tab] </th>
+									
+								</tr>
+								<form class="form-horizontal" method="post"> {% csrf_token %}
+									{%for drug in used_drugs%}
+								<tr>
+									<td>
+										<div class="input-group">
+											<input type="checkbox"  name="other_drugs[]" value = "{{drug.drugid}}" />
+										</div>
+									</td>
+									<td><span style = "color:green" ></span>{{drug.name}}</td>
+									<td>
+										<div class="cols-sm-10">
+											<div class="input-group">
+											
+												
+												<span class="tool-tip" data-toggle="tooltip"  data-placement="right" title ="W tym dniu pobrana dawka leku.">
+												<input type="number" class="form-control" name="{{drug.drugid}}" id="dose"  min="0"  step=".01" value = {{drug.dose}} />
+												</span>
+												
+											</div>
+											
+										</div>
+									</td>
+								</tr>
+								{%endfor%}
+								
+								<tr>
+									<td>
+										<div class="input-group">
+											<input type="checkbox"  name="new_drug" value = "add" />
+										</div>
+									</td>
+									<td>
+									
+										<select name="drugname" id="drugname" class="form-control" >
+											{% for drug in drugs_in_database %}
+											<option value = {{drug.drugid}}>{{drug.name}} {{drug.activesub}} mg
+											{%endfor%}
+										
+										</select>
+									</td>
+									<td>
+										<span class="tool-tip" data-toggle="tooltip"  data-placement="right" title ="Wprowadz dawkę leku.">
+										<input type="number" class="form-control" name="add_new_drug"   min="0"  step=".1"/> </span>
+									</td>
+								</tr>
+								
+						</table>
+									<div class="form-group ">
+										<span class = "tool-tip" data-toggle="tooltip" data-placement = "right" title = "W tym dniu pobrana dawka leku.">
+											<button type="submit" class="btn btn-primary btn-lg btn-block login-button" id = "enter_dose_other"  name = "other_drug">Zapisz</button>
+										</span>
+									</div>
+								</form>
+					</div>
+				
+				
+				
+		</div>
+	</div>
+	
+	
+	
+			<div class="col-lg-8 col-md-6">
+				
+				<div class="panel-heading">
+					<div class="main-center" >
+					<h3> Wszytkie dzisiaj przyjęte leki </h3>
+						<table class="table table-striped">
+								<tr>
+									<th></th>
+									<th>Nazwa leku</th>
+									<th>Przyjęta dawka</th>
+									<th>Godzina</th>
+									
+								</tr>
+								<form class="form-horizontal" method="post"> {% csrf_token %}
+									{%for drug in taken_drugs%}
+								<tr>
+									<td>
+										<div class="input-group">
+											<input type="checkbox"  name="drugs_to_delete[]" value = "{{drug.id}}" />
+										</div>
+									</td>
+									<td><span style = "color:green" ></span>{{drug.drugid.name}}</td>
+									<td>
+										{{drug.dose}}
+									</td>
+									<td>
+										{{drug.takendate|time:"H:i"}}
+									</td>
+								</tr>
+								{%endfor%}
+						</table>
+									<div class="form-group ">
+										<span class = "tool-tip" data-toggle="tooltip" data-placement = "right" title = "W tym dniu pobrana dawka leku.">
+											<button type="submit" class="btn btn-primary btn-lg btn-block login-button" id = "enter_dose_other"  name = "drug_to_delete">Usuń</button>
+										</span>
+									</div>
+								</form>
+					</div>
+				
+				
+				{{b}}
+		</div>
+	</div>
+	</div>
+
+
+
+{% endblock %}

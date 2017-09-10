@@ -1,0 +1,115 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+		<div class="container">
+			<div class="row main">
+			<h3> Przyjmowane leki przeciwzakrzepowe </h3>
+				<div class="alert alert-danger" style="visibility:" {{ show }}>
+					<strong>Coś poszło nie tak!</strong><br>
+					{{ message }}
+				
+				</div>	
+				<div class="alert alert-danger" style="visibility:" {{alerts.show_alert_already_set}}>
+					<strong>Nie ma jeszcze wrowadzonego leku</strong><br>
+					Wprowadź dane!
+				
+				</div>	
+				<div class="panel-heading">
+				<div class="main-center" >
+					<form class="form-horizontal" method="post"  > {% csrf_token %}
+						
+						<div class="form-group">
+							<label for="drugname" class="cols-sm-2 control-label">Nazwa leku <span style = "color: green; visibility: "{{ alerts.show_defaults}}>(zapisany lek:{{defaults.name.name}} {{defaults.name.activesub}} mg)</span></label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<select name="drugname" id="drugname" class="form-control" >
+										{% for drug in drugs %}
+										<option value = {{drug.drugid}}>{{drug.name}} {{drug.activesub}} mg
+										{%endfor%}
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="wantedinr" class="cols-sm-2 control-label">Docelowe INR <span style = "color: green; visibility: "{{ alerts.show_defaults}}>(zapisany docelowe INR: {{defaults.goal}})</span></label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<select name = "wantedinr" id="wantedinr" class="form-control" >
+										<option value = 2.5> 2,5 (zakres 2 - 3)
+										<option value = 3> 3 (zakres 2,5 - 3,5)
+									</select>	
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="partofdrug" class="cols-sm-2 control-label">Najmniejsza czesc tabletki jaką przyjmujesz: <span style = "color: green; visibility: "{{ alerts.show_defaults}}>(ustawiona część leku:{{defaults.part}})</span></label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<select name = "partofdrug" id="partofdrug" class="form-control" >
+										<option value = 0.5> połowa tabletki
+										<option value = 0.25> ćwiartka tabletki
+									</select>	
+								</div>
+							</div>
+						</div>
+						
+						<div class="alert alert-info" style="visibility:" {{ alerts.show_many_values }}>
+							<strong>Ustawione wartości na każdy dzień inne!</strong><br>
+							 Rozwiń <strong style = "color:orange">"Każdy dzień inna dawka"</strong> żeby sprwadzić.
+							</div>
+							<button type = "button" class="btn btn-primary btn-lg btn-block login-button" id= "change dose" onclick = "showElement()">Każdy dzień inna dawka</button>
+						<div class="form-group" id= "dose1">
+							<label for="dailydose" class="cols-sm-2 control-label">Zalecana dzienna dawka leku (w tab)</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<input type="number" class="form-control" name="dailydose" id="dailydose"  min="0" value="{{defaults.default_values.all}}" step="0.1"/>
+									
+								</div>
+								
+							</div>
+						</div>
+					
+						
+						<div class="form-group" id = "differentdose" style = "display:none">
+							<b>Zalecana dawaka w zależności od dnia</b>
+							<br>
+							
+							<label for="dailydoseman" class="cols-sm-2 control-label">Poniedziałek</label>
+							<input type="number" class="form-control" name="dailydoseman" id="dailydoseman"  min="0" value="{{defaults.default_values.pon}}" step="0.1" />
+							<label for="dailydosetu" class="cols-sm-2 control-label">Wtorek</label>
+							<input type="number" class="form-control" name="dailydosetu" id="dailydosetu"  min="0" value="{{defaults.default_values.wt}}" step="0.1" />
+							<label for="dailydosewen" class="cols-sm-2 control-label">Środa</label>
+							<input type="number" class="form-control" name="dailydosewen" id="dailydosewen"  min="0" value="{{defaults.default_values.sr}}" step="0.1"/>
+							<label for="dailydoseth" class="cols-sm-2 control-label">Czwartek</label>
+							<input type="number" class="form-control" name="dailydoseth" id="dailydoseth"  min="0" value="{{defaults.default_values.cz}}" step="0.1"/>	
+							<label for="dailydosefr" class="cols-sm-2 control-label">Piątek</label>
+							<input type="number" class="form-control" name="dailydosefr" id="dailydosefr"  min="0" value="{{defaults.default_values.pt}}" step="0.1"/>
+							<label for="dailydosesat" class="cols-sm-2 control-label">Sobota</label>
+							<input type="number" class="form-control" name="dailydosesat" id="dailydosesat"  min="0" value="{{defaults.default_values.sb}}" step="0.1"/>
+							<label for="dailydosesan" class="cols-sm-2 control-label">Niedziela</label>
+							<input type="number" class="form-control" name="dailydosesan" id="dailydosesan"  min="0" value="{{defaults.default_values.ndz}}" step="0.1"/>					
+						</div>
+						
+						<div class="form-group ">
+							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zapisz</button>
+						
+						</div>
+						</form>
+						
+					</div> 				
+				</div>
+				
+				
+				
+				</div>
+			</div>
+	
+		
+
+{% endblock %}

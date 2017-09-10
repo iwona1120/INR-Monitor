@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	{% load staticfiles %}
+
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="{% static 'personal/js/bootstrap.min.js' %}"></script>
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+			<style type="text/css">
+	.main-center{
+			margin-top: 30px;
+			margin: 0 auto;
+			max-width: 330px;
+			padding: 40px 40px;
+
+}
+	</style>
+		<link rel="stylesheet" href="{% static 'inrtracker/css/bootstrap.min.css' %}" type = "text/css"/>
+
+		<title>Admin</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row main">
+				<div class="panel-heading">
+	               <div class="panel-title text-center">
+	               		<img src="{% static 'inrtracker/images/logo.png' %}" alt="Tekst alternatywny" width="200"/></a>
+	               		<hr />
+	               	</div>
+	            </div> 
+				<div class="alert alert-danger" style="visibility:" {{ show }}>
+					<strong>Coś poszło nie tak!</strong><br>
+					{{ message }}
+				</div>	
+				<div class="main-center" >
+					<form class="form-horizontal" method="post"  > {% csrf_token %}
+						
+						<div class="form-group">
+							<label for="login" class="cols-sm-2 control-label">Login</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="login" id="login"  placeholder="Wprowadź login"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="password" class="cols-sm-2 control-label">Hasło</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input type="password" class="form-control" name="password" id="password"  placeholder="Wprowadź swoje hasło"/>
+								</div>
+							</div>
+						</div>
+
+						
+						<div class="form-group ">
+							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zaloguj</button>
+						
+						</div>
+						</form>
+						<div class="panel-heading">
+							<div class="panel-title text-center">
+							<a href = "/inrtracker/register"><button class="btn btn-primary btn-lg btn-block login-button">Zarejestruj</button></a>
+							<hr />
+							</div>
+					</div> 				
+				</div>
+			</div>
+		</div>
+
+		
+	</body>
+</html>
+{% block content %}
+	
+{% endblock %}

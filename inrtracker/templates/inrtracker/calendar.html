@@ -1,0 +1,167 @@
+{<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>INR Monitor</title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="{% static 'inrtracker/js/bootstrap.min.js' %}"></script>
+	
+	<script src="{% static 'inrtracker/lib/moment.min.js' %}"></script>
+	<script src="{% static 'inrtracker/lib/jquery.min.js' %}"></script>
+	<script src = "{% static 'inrtracker/fullcalendar.min.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'inrtracker/fullcalendar.min.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'inrtracker/fullcalendar.print.min.css' %}" media='print'/>
+	<link rel="stylesheet" href="{% static 'inrtracker/css/bootstrap.min.css' %}" type = "text/css"/>
+	
+	
+	<script>
+	function showElement(){
+		var d = document.getElementById("differentdose")
+		var dd = document.getElementById("dose1")
+		
+		 if (d.style.display === 'none') {
+			d.style.display = 'block';
+			dd.style.display = 'none';
+		} else {
+			d.style.display = 'none';
+			dd.style.display = 'block';
+		}
+	}
+
+	</script>
+	
+
+
+	
+	<script>
+
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			defaultDate: '{{ today|date:"Y-m-d" }}',
+			navLinks: true, // can click day/week names to navigate views
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			events: {{events|safe}}
+		});
+		
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+
+
+
+	
+	<style type="text/css">
+		html,
+		body {
+		  height:100%
+		  margin: 40px 10px;
+		  padding: 0;
+		  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		  font-size: 14px;
+		  
+		}
+		.tool-tip {
+		display: inline-block;
+		}
+
+		.tool-tip [disabled] {
+		pointer-events: none;
+		}
+		
+		#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+	</style>
+</head>
+
+
+<body class="body" style="background-color:#f6f6f6">
+
+
+   <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/inrtracker/home"><img src="{% static 'inrtracker/images/logo.png' %}" alt="Tekst alternatywny" width="150" height="30"/></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+			<li ><a href="/inrtracker/home/calendar/"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalendarz</a></li>
+              <li ><a href="/inrtracker/home/statistic/"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Statystyka</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Informacje pods.</a></li>
+	
+			   <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-film" aria-hidden="true"></span> Historia <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/inrtracker/home/basicinfo.html"></a></li>
+                  <li><a href="/inrtracker/home/all_visits">Wizyt</a></li>
+                  <li><a href="/inrtracker/home/all_taken_drugs/">Przyjęte leki</a></li>
+			
+                </ul>
+			  
+			  <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Ustawienia <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/inrtracker/home/basicinfo.html">Jaki lek przeciwzakrzepowy</a></li>
+				  <li><a href="/inrtracker/home/all_other_medicine">Inne przyjmowane leki</a></li>
+                  <li><a href="#">Ustawienia konta</a></li>
+                  
+                </ul>
+				<li class="active"><a href="/inrtracker/logout"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Wyloguj</a></li>
+              </li>
+            </ul>
+            
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+		 
+	
+	<div class="container-fluid">
+			   <div id = 'calendar'></div>
+	</div>
+		
+
+<script>
+$(document).ready(function(){
+	var disabled = $("#enter_dose").is(":disabled"); 
+	 if (disabled){
+    $('[data-toggle="tooltip"]').tooltip();	
+	}
+
+});
+
+</script>
+
+ 
+</body>
+
+</html>

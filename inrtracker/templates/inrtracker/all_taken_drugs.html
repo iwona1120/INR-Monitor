@@ -1,0 +1,57 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+
+<div class="panel-heading">
+				<div class="main-center" >
+					<form class="form-horizontal" method="post"  > {% csrf_token %}
+						
+						<div class="form-group">
+							<label for="drugname" class="cols-sm-2 control-label">Wybierz nazwe leku </label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<select name="drugname" id="drugname" class="form-control" >
+										<option value = "all_drugs" default>All drugs</option>
+										{% for drug in drugs %}
+										<option value = {{drug.drugid}}> {{drug.drugid.name}} {{drug.drugid.activesub}} mg</option>
+										{%endfor%}
+										
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nexttestdate" class="cols-sm-2 control-label">Wybierz datę:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<input type="date" class="form-control" name="date" id="date" />
+								</div>
+							</div>
+						</div>
+						
+		<div class="form-group ">
+			<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Wyszukaj</button>
+		
+		</form>
+
+
+<table class="table table-striped">
+	<tr>
+	 <th>Nazwa leku</th>
+	 <th>Data przyjęcia</th>
+	 <th>Przyjeta dawka (w tabletkach) </th>
+	</tr>
+{%for drug in taken_drugs %}
+	<tr>
+		<td>{{ drug.drugid.name}} {{drug.drugid.activesub }} mg </td>
+		<td>{{ drug.takendate|date:"d-m-Y"}}</td>
+		<td>{{ drug.dose }}</td>
+	</tr>	
+
+{%endfor%}
+</table>
+
+
+{% endblock %}

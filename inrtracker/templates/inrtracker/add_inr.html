@@ -1,0 +1,62 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+		<div class="container">
+			<div class="row main">
+			
+		<div class="alert alert-success alert-warning" style="visibility: "{{ show_alert }}>
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+			<strong>Masz nie wprowadzonych kilka wartości w ciągu ostatniego tygodnia wartości!  </strong><br>
+			Wprowadź dane, aby proponowane wartości zostały wiloczone na podstawie <strong>przyjęctych faktcznych wartości </strong><br>
+			W przeciwnym razie propozycja przymowania będzie ustalona na podstawie wartości wprowadzonych w ustawieniach. 
+			
+			<a href = "/inrtracker/home/missed_dose"><button class="btn btn-warning btn-md">Sprawdź!</button></a>				
+		</div>	
+			
+				<div class="alert alert-danger" style="visibility:" {{ show }}>
+					<strong>Coś poszło nie tak!</strong><br>
+					{{ message }}
+				
+				</div>	
+				<div class="panel-heading">
+				<div class="main-center" >
+					<form class="form-horizontal" method="post"  > {% csrf_token %}
+						
+						<div class="form-group">
+							<label for="INRValue" class="cols-sm-2 control-label">Wartość INR</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<input type="number" class="form-control" name="INRValue" id="INRValue"  placeholder="Wprowadź wartość INR"  min="0" value="0" step=".01"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="testdate" class="cols-sm-2 control-label">Data</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"></span>
+									<input type="date" class="form-control" name="testdate" id="testdate"  max = '{{ value|date:"Y-m-d" }}' placeholder="Wprowadź datę badania"/>
+								</div>
+							</div>
+						</div>
+
+						
+						<div class="form-group ">
+							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zapisz</button>
+						
+						</div>
+						</form>
+						
+					</div> 				
+				</div>
+				</div>
+			</div>
+		
+{%for drug in taken_drug%}
+	{{drug.takendate}}  {{drug.dose}}<br>
+{%endfor%}
+<br>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+
+
+<table class="table table-striped">
+	<tr>
+	 <th>Data</th>
+	 <th>Nazwa leku</th>
+	 <th>Przyjeta dawka leku </th>
+	</tr>
+	
+		<form class="form-horizontal" method="post"  > {% csrf_token %}
+		
+		{%for medicine in tab_missing_dates %}
+			{%for j in medicine.table%}
+		<tr>
+			<td>
+				<div class="form-group">
+					<div class="cols-sm-10">
+						<div class="input-group">
+							
+							<label><input type="checkbox"  name="missing_dates[]" value = "{{j|date:'Y-m-d'}};{{medicine.title}}" /> {{j|date:'d-m-Y'}}</label>
+						</div>
+					</div>
+				</div>
+			</td>
+			<td>
+				{{medicine.title.name}}
+			</td>
+			
+			<td>
+				<div class="form-group">
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<input type="number" class="form-control" name="{{j|date:'Y-m-d'}};{{medicine.title}}" id="{{j|date:'Y-m-d'}}"  min="0" step=".01" />
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		{%endfor%} {%endfor%}
+	</table>
+	<div class="form-group ">
+		<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zapisz</button>					
+	</div>	
+	</form>			
+
+
+<br>
+
+{% endblock %}

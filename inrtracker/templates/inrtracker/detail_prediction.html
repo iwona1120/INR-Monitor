@@ -1,0 +1,135 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+
+<div class="row">
+                
+				<div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+								<div class="col-xs-9 text-right">
+									<div style = "font-size:36px"> {{last_INR.INRValue}}</div>    
+									<div>Ostatnia wartość INR</div>
+								</div>
+							</div>
+						</div>
+                  
+                    </div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+								<div class="col-xs-9 text-right">
+									<div style = "font-size:36px"> {{user.wantedinr}}</div>    
+									<div>Docelowe INR </div>
+								</div>
+							</div>
+						</div>
+                  
+                    </div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+								<div class="col-xs-11 text-right">
+									<div style = "font-size:36px"> {{prediction_D.date|date:"d-m-Y"}}</div>    
+									<div>Kolejna proponowana wizyta </div>
+								</div>
+							</div>
+						</div>
+                  
+                    </div>
+				</div>	
+				<div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+								<div class="col-xs-11 text-right">
+									<div style = "font-size:26px"> Uwagi</div>    
+									<div>{{prediction_D.message}} </div>
+								</div>
+							</div>
+						</div>
+                  
+                    </div>
+				</div>
+</div>				
+
+<div class = "container">
+	  
+</div>
+
+<div class="alert alert-success alert-info" style="visibility: "{{ medicine.diff_visible }}>
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+	<strong style = "color:red" > Uwaga</strong>
+	Faktycznie przyjeta dawka jest różna z ustawieniami. <br>
+	Różnica: Dawka z ustawienia - zapisana przyjęta dawka = 
+	<strong style = "color:red" >{{medicine.diff}}</strong>
+</div>	
+
+<div class="container">
+<table class="table table-striped" >
+	<tr>
+		<th>Tygodniowa dawka zapisana w ustwaieniach </th>
+		<th>Dawka przyjęta w ostatnim tygodniu</th>
+		<th>Suma proponowanej dawki</th>
+		<th>Zmiana proponowana do przyjętej</th>
+		<th>Zmiana zmiana w stosunku do wartości z ustawień<th>
+	 </tr>
+	 <tr>
+		<td>{{medicine.suma_dose}}	</td>
+		<td>{{medicine.sum_saved}}</td>
+		<td>{{medicine.suma_prediction}}</td>
+		<td> {{medicine.change_save}}  {{medicine.message_save}}</td>
+		<td>{{medicine.change}} {{medicine.message}}</td>
+	 </tr>
+</table>
+</div>
+
+<h3> Poroponowane w zależności od dnia : </h3>
+
+<div class="container">
+<table class="table table-striped" >
+	<tr>
+	 <th></th>
+	 <th>Zapisane wartości w ustawieniach</th>
+	 <th>Proponowane wartości</th>
+	</tr>
+{%for i,j,k in tables %}
+	<tr>
+		<td>{{i}}</td>
+		<td>{{k}}</td>
+		<td style = "color:blue"><b>{{j}}</b></td>
+		
+		
+	</tr>	
+
+{%endfor%}
+<tr>
+		<td> Suma </td>
+		<td style = "font-size:16px">{{medicine.suma_dose}}	</td>
+		<td style = "color:blue; font-size:16px"><b>{{medicine.suma_prediction}}</b></td>
+		<td></td>
+		<td></td>
+		
+
+</table>
+</div>	
+<div class ="container">
+	
+	<form class="form-horizontal" method="post"  > {% csrf_token %}
+		<div class="form-group ">
+			<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zapisz dawki zgodnie z propozycjami</button>
+						
+		</div>
+	</form>
+</div>
+
+
+
+
+
+{% endblock %}

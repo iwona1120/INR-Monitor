@@ -1,0 +1,54 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+		<div class="container">
+			<div class="row main">
+			
+			
+				<div class="panel-heading">
+				<div class="main-center" >
+					<form class="form-horizontal" method="post"  > {% csrf_token %}
+						
+						<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Nazwa leku</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="name" id="name"  placeholder="Wprowadź nazwę leku"  />
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="activesub" class="cols-sm-2 control-label">Wartość aktywnej substancji</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input type="number" class="form-control" name="activesub" id="activesub"  min = 0  placeholder="Wprowadż wartość aktywnej substacji np. 100"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="units" class="cols-sm-2 control-label">Wprowadź jednostkę</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="units" id="units"  placeholder="Wprowadź jednostkę np. mg"  />
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group ">
+							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zapisz</button>
+						
+						</div>
+						</form>
+						
+					</div> 				
+				</div>
+				</div>
+			</div>
+		
+{{a}}
+{% endblock %}

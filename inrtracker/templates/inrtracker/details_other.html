@@ -1,0 +1,72 @@
+{% extends "inrtracker/header.html" %}
+
+{% block content %}
+
+<div class="container">
+<div class = "container">
+<h4>Nazwa leku: <strong>{{drug.drugid.name}} {{drug.drugid.activesub}}</strong> <h4>
+</div>
+
+
+<form class="form-horizontal" method="post"  > {% csrf_token %}
+						
+					<div class="form-group">
+					<div class="cols-sm-10">
+						<div class="input-group">
+							
+							<label><h4><input type="checkbox"  name="delete" value = "delete" /> Usuń lek</h4></label>
+						</div>
+					</div>
+				</div>
+				<button type = "button" class="btn btn-primary btn-lg btn-block login-button" id= "change dose" onclick = "showElement()">Każdy dzień inna dawka</button>
+						
+						<div class="form-group" id= "dose1">
+							<label for="dailydose" class="cols-sm-2 control-label">Zalecana dzienna dawka leku (w tab)</label>
+							
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input type="number" class="form-control" name="dailydose" id="dailydose"  min="0" value="{{default_values.pon}}" step="0.1"/>
+									
+								</div>
+								
+							</div>
+						</div>
+					    
+						
+						<div class="form-group" id = "differentdose" style = "display:none">
+							<b>Zalecana dawaka w zależności od dnia</b>
+							<br>
+							
+							<label for="dailydoseman" class="cols-sm-2 control-label">Poniedziałek</label>
+							<input type="number" class="form-control" name="dailydoseman" id="dailydoseman"  min="0" value="{{default_values.pon}}" step="0.1" />
+							<label for="dailydosetu" class="cols-sm-2 control-label">Wtorek</label>
+							<input type="number" class="form-control" name="dailydosetu" id="dailydosetu"  min="0" value="{{default_values.wt}}" step="0.1" />
+							<label for="dailydosewen" class="cols-sm-2 control-label">Środa</label>
+							<input type="number" class="form-control" name="dailydosewen" id="dailydosewen"  min="0" value="{{default_values.sr}}" step="0.1"/>
+							<label for="dailydoseth" class="cols-sm-2 control-label">Czwartek</label>
+							<input type="number" class="form-control" name="dailydoseth" id="dailydoseth"  min="0" value="{{default_values.cz}}" step="0.1"/>	
+							<label for="dailydosefr" class="cols-sm-2 control-label">Piątek</label>
+							<input type="number" class="form-control" name="dailydosefr" id="dailydosefr"  min="0" value="{{default_values.pt}}" step="0.1"/>
+							<label for="dailydosesat" class="cols-sm-2 control-label">Sobota</label>
+							<input type="number" class="form-control" name="dailydosesat" id="dailydosesat"  min="0" value="{{default_values.sb}}" step="0.1"/>
+							<label for="dailydosesan" class="cols-sm-2 control-label">Niedziela</label>
+							<input type="number" class="form-control" name="dailydosesan" id="dailydosesan"  min="0" value="{{default_values.ndz}}" step="0.1"/>					
+						</div>
+						
+						
+						
+						<div class="form-group ">
+							<button type="submit" class="btn btn-primary btn-lg btn-block login-button" {{edit}} >Zapisz</button>
+						
+						</div>
+						
+						</form>
+					
+					
+				
+
+	
+</div>	
+<a href = "/inrtracker/home/all_other_medicine"><button class="btn btn-primary btn-lg  ">Powrót</button></a><br>
+{% endblock %}
