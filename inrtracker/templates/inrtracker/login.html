@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head> 
+    <head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	{% load staticfiles %}
-	
+
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="{% static 'personal/js/bootstrap.min.js' %}"></script>
@@ -21,7 +21,7 @@
 }
 	</style>
 		<link rel="stylesheet" href="{% static 'inrtracker/css/bootstrap.min.css' %}" type = "text/css"/>
-		<title>Admin</title>
+		<title>INR Monitor</title>
 	</head>
 	<body>
 		<div class="container">
@@ -31,8 +31,8 @@
 	               		<img src="{% static 'inrtracker/images/logo.png' %}" alt="Tekst alternatywny" width="200"/></a>
 	               		<hr />
 	               	</div>
-	            </div> 
-				
+	            </div>
+
 				<div class="main-center" >
 				<div class="alert alert-success" style="visibility:" {{ show }}>
 					<strong>Hura!</strong><br>
@@ -40,7 +40,7 @@
 					<a href = "/inrtracker/login/"><button class="btn btn-success btn-lg">Zaloguj</button></a>
 				</div>
 					<form class="form-horizontal" method="post" > {% csrf_token %}
-						
+
 						<div class="form-group">
 							<label for="name" class="cols-sm-2 control-label">Imię</label>
 							<div class="cols-sm-10">
@@ -90,17 +90,17 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label for="wantedinr" class="cols-sm-2 control-label">Porządane INR</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
-									
+
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
 									<select name = "wantedinr" id="wantedinr" class="form-control" >
 										<option value = 2.5> 2,5 (zakres 2 - 3)
 										<option value = 3> 3 (zakres 2,5 - 3,5)
-									</select>	
+									</select>
 								</div>
 							</div>
 						</div>
@@ -111,15 +111,15 @@
 					</div>
 							<a href = "/inrtracker/login/"><button class="btn btn-primary btn-lg btn-block login-button">Zaloguj</button></a>
 							<hr />
-							
-					
+
+
 				</div>
 			</div>
 		</div>
 
-		
+
 	</body>
 </html>
 {% block content %}
-	
+
 {% endblock %}

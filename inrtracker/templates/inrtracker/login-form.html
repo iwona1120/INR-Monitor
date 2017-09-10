@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head> 
+    <head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	{% load staticfiles %}
@@ -22,7 +22,7 @@
 	</style>
 		<link rel="stylesheet" href="{% static 'inrtracker/css/bootstrap.min.css' %}" type = "text/css"/>
 
-		<title>Admin</title>
+		<title>INR Monitor</title>
 	</head>
 	<body>
 		<div class="container">
@@ -32,14 +32,14 @@
 	               		<img src="{% static 'inrtracker/images/logo.png' %}" alt="Tekst alternatywny" width="200"/></a>
 	               		<hr />
 	               	</div>
-	            </div> 
+	            </div>
 				<div class="alert alert-danger" style="visibility:" {{ show }}>
 					<strong>Coś poszło nie tak!</strong><br>
 					{{ message }}
-				</div>	
+				</div>
 				<div class="main-center" >
 					<form class="form-horizontal" method="post"  > {% csrf_token %}
-						
+
 						<div class="form-group">
 							<label for="login" class="cols-sm-2 control-label">Login</label>
 							<div class="cols-sm-10">
@@ -60,10 +60,10 @@
 							</div>
 						</div>
 
-						
+
 						<div class="form-group ">
 							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zaloguj</button>
-						
+
 						</div>
 						</form>
 						<div class="panel-heading">
@@ -71,14 +71,14 @@
 							<a href = "/inrtracker/register"><button class="btn btn-primary btn-lg btn-block login-button">Zarejestruj</button></a>
 							<hr />
 							</div>
-					</div> 				
+					</div>
 				</div>
 			</div>
 		</div>
 
-		
+
 	</body>
 </html>
 {% block content %}
-	
+
 {% endblock %}
