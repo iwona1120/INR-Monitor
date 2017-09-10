@@ -497,14 +497,11 @@ def add_INR(request):
 
 				message_alert = "Spróbuj wypełnić formularz jeszcze raz. Nie wszytkie pola zostały wypełnione"
 
-				message_alert = "Spróbuj wypełnić formularz jeszcze raz. Nie wszytkie pola zostały wypełnione"
 
 				return render(request, 'inrtracker/add_inr.html',{'user':userlogin,'value':value, 'message_alert':message_alert, 'show':show, 'taken_drug':taken_drug, 'show_alert':show_alert})
 		else:
 			login= INRForm()
 			return render(request, 'inrtracker/add_inr.html',{'user':user, 'message_alert':message_alert,'value':value, 'show':show, 'taken_drug':taken_drug, 'show_alert': show_alert})
-
-	else:
 
 	else:
 
