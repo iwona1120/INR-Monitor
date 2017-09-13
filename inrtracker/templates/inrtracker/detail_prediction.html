@@ -3,18 +3,18 @@
 {% block content %}
 
 <div class="row">
-                
+
 				<div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
 								<div class="col-xs-9 text-right">
-									<div style = "font-size:36px"> {{last_INR.INRValue}}</div>    
+									<div style = "font-size:36px"> {{last_INR.INRValue}}</div>
 									<div>Ostatnia wartość INR</div>
 								</div>
 							</div>
 						</div>
-                  
+
                     </div>
 				</div>
 				<div class="col-lg-3 col-md-6">
@@ -22,12 +22,12 @@
                         <div class="panel-heading">
                             <div class="row">
 								<div class="col-xs-9 text-right">
-									<div style = "font-size:36px"> {{user.wantedinr}}</div>    
+									<div style = "font-size:36px"> {{user.wantedinr}}</div>
 									<div>Docelowe INR </div>
 								</div>
 							</div>
 						</div>
-                  
+
                     </div>
 				</div>
 				<div class="col-lg-3 col-md-6">
@@ -35,40 +35,40 @@
                         <div class="panel-heading">
                             <div class="row">
 								<div class="col-xs-11 text-right">
-									<div style = "font-size:36px"> {{prediction_D.date|date:"d-m-Y"}}</div>    
+									<div style = "font-size:36px"> {{prediction_D.date|date:"d-m-Y"}}</div>
 									<div>Kolejna proponowana wizyta </div>
 								</div>
 							</div>
 						</div>
-                  
+
                     </div>
-				</div>	
+				</div>
 				<div class="col-lg-3 col-md-6">
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
 								<div class="col-xs-11 text-right">
-									<div style = "font-size:26px"> Uwagi</div>    
+									<div style = "font-size:26px"> Uwagi</div>
 									<div>{{prediction_D.message}} </div>
 								</div>
 							</div>
 						</div>
-                  
+
                     </div>
 				</div>
-</div>				
+</div>
 
 <div class = "container">
-	  
+
 </div>
 
 <div class="alert alert-success alert-info" style="visibility: "{{ medicine.diff_visible }}>
 	<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
 	<strong style = "color:red" > Uwaga</strong>
 	Faktycznie przyjeta dawka jest różna z ustawieniami. <br>
-	Różnica: Dawka z ustawienia - zapisana przyjęta dawka = 
+	Różnica: Dawka z ustawienia - zapisana przyjęta dawka =
 	<strong style = "color:red" >{{medicine.diff}}</strong>
-</div>	
+</div>
 
 <div class="container">
 <table class="table table-striped" >
@@ -89,7 +89,7 @@
 </table>
 </div>
 
-<h3> Poroponowane w zależności od dnia : </h3>
+<h3> Proponowana dawka w zależności od dnia : </h3>
 
 <div class="container">
 <table class="table table-striped" >
@@ -103,9 +103,9 @@
 		<td>{{i}}</td>
 		<td>{{k}}</td>
 		<td style = "color:blue"><b>{{j}}</b></td>
-		
-		
-	</tr>	
+
+
+	</tr>
 
 {%endfor%}
 <tr>
@@ -114,16 +114,16 @@
 		<td style = "color:blue; font-size:16px"><b>{{medicine.suma_prediction}}</b></td>
 		<td></td>
 		<td></td>
-		
+
 
 </table>
-</div>	
+</div>
 <div class ="container">
-	
+
 	<form class="form-horizontal" method="post"  > {% csrf_token %}
 		<div class="form-group ">
 			<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Zapisz dawki zgodnie z propozycjami</button>
-						
+
 		</div>
 	</form>
 </div>
