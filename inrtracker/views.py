@@ -843,7 +843,7 @@ def detail_prediction(request):
 
 		tabla_dni_tyg = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela']
 		medicine ={'suma_prediction' :suma_prediction, 'suma_dose':suma_dose, 'change':change, 'message':message, 'change_save':change_save,'message_save':message_save,'sum_saved':sum_saved,'diff':diff, 'diff_visible':diff_visible}
-		prediction_D = {'date': prediction_data.date_prediction, 'message':prediction_data.prediction_message}
+		prediction_D = {'date': prediction_data.predicted_data_test, 'message':prediction_data.prediction_message}
 		tables = zip(tabla_dni_tyg,table_prediction,dose_save_table)
 		if request.method == "POST":
 			used_drug_INR.useddose = prediction_data.predicted_dose
