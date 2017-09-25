@@ -1,12 +1,15 @@
 import math
 
 
-def predict_dose(ratio, weekly_dose, option):
+def predict_dose(ratio, weekly_dose, opcja):
     table_new_dose = []
 
     new_weekly_dose = weekly_dose * ratio
+    if opcja == 0.25:
+        day_dose = round(new_weekly_dose / 7 * 4) / 4
+    elif opcja == 0.5:
+        day_dose = round(new_weekly_dose / 7 * 2) / 2
 
-    day_dose = round(new_weekly_dose / 7 * 2) / 2
     diff = new_weekly_dose - day_dose * 7
     for i in range(7):
         table_new_dose.append(day_dose)
@@ -14,25 +17,21 @@ def predict_dose(ratio, weekly_dose, option):
     suma = sum(table_new_dose)
 
     diff = suma/weekly_dose
-    if ratio>1:
-         i = 0
-         while diff>(ratio + 0.025):
-             table_new_dose[int(math.fmod(i * 2, 7))] -= float(option)
-             i+=1
-             diff = sum(table_new_dose)/weekly_dose
-    else:
-         i = 0
-         while diff < (ratio - 0.025):
-             table_new_dose[int(math.fmod(i * 2, 7))] += float(option)
-             i += 1
-             diff = sum(table_new_dose) / weekly_dose
+
+    i = 0
+    while diff>(ratio + 0.025):
+         table_new_dose[int(math.fmod(i * 2, 7))] -= opcja
+         i+=1
+         diff = sum(table_new_dose)/weekly_dose
+    while diff < (ratio - 0.025):
+        table_new_dose[int(math.fmod(i * 2, 7))] += opcja
+        i += 1
+        diff = sum(table_new_dose) / weekly_dose
 
     return table_new_dose
 
-
-
 def next_test(query_INR):
-	
+
 	days = 7;
 
 	if len(query_INR) <=4:
@@ -60,7 +59,7 @@ def table_char(table_dose, weekly_dose):
         predicted_table_char = weekly_dose
 
     return predicted_table_char
-	
+
 def convert_to_table(a):
     if len(a) == 1:
         for i in range(6):
